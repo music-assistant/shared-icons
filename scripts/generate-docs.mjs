@@ -120,6 +120,7 @@ const indexHtml = `<!doctype html>
     :root { --bg: #0d1117; --card: #161b22; --text: #e6edf3; --muted: #8b949e; --border: #30363d; }
   }
   * { box-sizing: border-box; }
+  [hidden] { display: none !important; }
   body { margin: 0 auto; max-width: 1080px; padding: 40px 24px 64px; background: var(--bg); color: var(--text); font: 15px/1.5 system-ui, sans-serif; }
   h1 { margin: 0 0 4px; font-size: 26px; }
   h1 small { font-size: 15px; font-weight: 400; color: var(--muted); }
