@@ -1,0 +1,3 @@
+# Generated files — the docs generator owns their formatting (CI checks they match its output exactly)
+docs/
+icons/
