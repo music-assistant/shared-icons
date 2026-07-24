@@ -161,16 +161,30 @@ ${sections}
 `;
 
 // --- README table between the GENERATED markers ------------------------------
-const tableRows = manifest.icons.map((icon) => {
-  const aliases = icon.aliases.map((a) => `\`${a}\``).join(", ") || "—";
-  return `| \`${icon.id}\` | ${icon.name} | ${icon.category} | ${aliases} | \`${icon.mdi}\` |`;
-});
+// Columns are padded prettier-style so format-on-save doesn't reformat the
+// generated block (which would trip the CI freshness check).
+const header = ["Id", "Name", "Category", "Aliases", "MDI fallback"];
+const rows = manifest.icons.map((icon) => [
+  `\`${icon.id}\``,
+  icon.name,
+  icon.category,
+  icon.aliases.map((a) => `\`${a}\``).join(", ") || "—",
+  `\`${icon.mdi}\``,
+]);
+const widths = header.map((h, c) => Math.max(h.length, ...rows.map((r) => r[c].length)));
+const toLine = (cells) => `| ${cells.map((cell, c) => cell.padEnd(widths[c])).join(" | ")} |`;
+const table = [
+  toLine(header),
+  `| ${widths.map((w) => "-".repeat(w)).join(" | ")} |`,
+  ...rows.map(toLine),
+].join("\n");
+
 const generated = `<!-- GENERATED:START — do not edit by hand; run \`node scripts/generate-docs.mjs\` -->
+
 ![All icons in the set](docs/preview.svg)
 
-| Id | Name | Category | Aliases | MDI fallback |
-| --- | --- | --- | --- | --- |
-${tableRows.join("\n")}
+${table}
+
 <!-- GENERATED:END -->`;
 
 const readmePath = join(ROOT, "README.md");
