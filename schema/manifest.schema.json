@@ -31,7 +31,7 @@
     },
     "icon": {
       "type": "object",
-      "required": ["id", "name", "category", "source", "keywords", "aliases", "mdi"],
+      "required": ["id", "name", "category", "source", "keywords"],
       "additionalProperties": false,
       "properties": {
         "id": { "$ref": "#/definitions/iconId" },
@@ -65,16 +65,6 @@
           "type": "array",
           "description": "Extra search terms for pickers. Lowercase.",
           "items": { "type": "string" }
-        },
-        "aliases": {
-          "type": "array",
-          "description": "Alternate or legacy identifiers that resolve to this icon. Must be globally unique and must not collide with any id.",
-          "items": { "$ref": "#/definitions/iconId" }
-        },
-        "mdi": {
-          "type": "string",
-          "description": "Closest Material Design Icons equivalent, for MDI-only contexts (e.g. Home Assistant) and legacy-value migration.",
-          "pattern": "^mdi-[a-z0-9-]+$"
         }
       }
     }

@@ -12,10 +12,10 @@ frontend's icon choices leak into other clients. This repo replaces that with:
 
 - **A small, curated set of set-agnostic icon ids.** The server stores and serves
   `"speaker"` or `"kitchen"`, it knows nothing about icon libraries.
-- **One SVG per id**, so all clients render the exact same artwork. The web frontend
-  consumes them directly; mobile converts them to vector assets at build time.
+- **One SVG per id** as the canonical artwork every client renders, whether it uses
+  the files directly or maps ids to equivalent icon components.
 - **A machine-readable [`manifest.json`](manifest.json)** describing every icon:
-  its category, search keywords, aliases and closest MDI equivalent.
+  its category, search keywords, and artwork source.
 
 ## The set
 
@@ -27,38 +27,38 @@ jsDelivr, e.g. `https://cdn.jsdelivr.net/gh/music-assistant/shared-icons@main/ic
 
 ![All icons in the set](docs/preview.svg)
 
-| Id             | Name          | Category | Aliases                             | MDI fallback                |
-| -------------- | ------------- | -------- | ----------------------------------- | --------------------------- |
-| `homepod-mini` | HomePod mini  | device   | `homepod`, `apple-homepod-mini`     | `mdi-speaker`               |
-| `sonos`        | Sonos         | device   | —                                   | `mdi-speaker`               |
-| `mac`          | Mac           | device   | —                                   | `mdi-laptop`                |
-| `apple-tv`     | Apple TV      | device   | `appletv`                           | `mdi-apple`                 |
-| `speaker`      | Speaker       | player   | —                                   | `mdi-speaker`               |
-| `speakers`     | Speaker group | player   | `speaker-multiple`, `speaker-group` | `mdi-speaker-multiple`      |
-| `radio`        | Radio         | player   | —                                   | `mdi-radio`                 |
-| `tv`           | TV            | player   | `television`                        | `mdi-television`            |
-| `monitor`      | Monitor       | player   | —                                   | `mdi-monitor`               |
-| `laptop`       | Laptop        | player   | `laptop-2`, `laptop-minimal`        | `mdi-laptop`                |
-| `headphones`   | Headphones    | player   | —                                   | `mdi-headphones`            |
-| `bluetooth`    | Bluetooth     | player   | `bluetooth-speaker`                 | `mdi-bluetooth`             |
-| `airplay`      | AirPlay       | player   | —                                   | `mdi-cast-variant`          |
-| `cast`         | Cast          | player   | —                                   | `mdi-cast`                  |
-| `car`          | Car           | player   | —                                   | `mdi-car`                   |
-| `music`        | Music         | media    | `music-2`                           | `mdi-music`                 |
-| `vinyl`        | Vinyl         | media    | `disc-3`                            | `mdi-album`                 |
-| `mic`          | Microphone    | media    | `microphone`                        | `mdi-microphone`            |
-| `volume`       | Volume        | media    | `volume-2`, `speaker-loud`          | `mdi-volume-high`           |
-| `living-room`  | Living room   | area     | `sofa`                              | `mdi-sofa`                  |
-| `bedroom`      | Bedroom       | area     | `bed-double`, `bed`                 | `mdi-bed`                   |
-| `bathroom`     | Bathroom      | area     | `bath`                              | `mdi-bathtub`               |
-| `kitchen`      | Kitchen       | area     | `utensils`                          | `mdi-silverware-fork-knife` |
-| `office`       | Office        | area     | `briefcase`                         | `mdi-briefcase`             |
-| `hallway`      | Hallway       | area     | `door-open`                         | `mdi-door-open`             |
-| `garden`       | Garden        | area     | `flower-2`, `flower`                | `mdi-flower`                |
-| `outdoor`      | Outdoor       | area     | `tree`, `tree-pine`                 | `mdi-pine-tree`             |
-| `sun`          | Sun           | area     | —                                   | `mdi-weather-sunny`         |
-| `home`         | Home          | area     | `house`                             | `mdi-home`                  |
-| `building`     | Building      | area     | —                                   | `mdi-office-building`       |
+| Id             | Name          | Category | Keywords                               |
+| -------------- | ------------- | -------- | -------------------------------------- |
+| `homepod-mini` | HomePod mini  | device   | apple, smart speaker, siri, homepod    |
+| `sonos`        | Sonos         | device   | speaker, smart speaker                 |
+| `mac`          | Mac           | device   | apple, computer, macbook               |
+| `apple-tv`     | Apple TV      | device   | apple, media box, set-top box, appletv |
+| `speaker`      | Speaker       | player   | audio, hifi                            |
+| `speakers`     | Speaker group | player   | group, pair, stereo, multiple          |
+| `radio`        | Radio         | player   | tuner, fm, receiver                    |
+| `tv`           | TV            | player   | television, screen                     |
+| `monitor`      | Monitor       | player   | screen, desktop, display, computer     |
+| `laptop`       | Laptop        | player   | computer, notebook                     |
+| `headphones`   | Headphones    | player   | headset, audio                         |
+| `bluetooth`    | Bluetooth     | player   | wireless, speaker                      |
+| `airplay`      | AirPlay       | player   | apple, streaming                       |
+| `cast`         | Cast          | player   | chromecast, google, streaming          |
+| `car`          | Car           | player   | auto, vehicle, garage                  |
+| `music`        | Music         | media    | note, song                             |
+| `vinyl`        | Vinyl         | media    | record, disc, turntable, lp            |
+| `mic`          | Microphone    | media    | karaoke, voice, vocal, microphone      |
+| `volume`       | Volume        | media    | loud, sound                            |
+| `living-room`  | Living room   | area     | sofa, couch, lounge                    |
+| `bedroom`      | Bedroom       | area     | bed, sleep                             |
+| `bathroom`     | Bathroom      | area     | bath, tub, shower                      |
+| `kitchen`      | Kitchen       | area     | cooking, dining, utensils, fork        |
+| `office`       | Office        | area     | work, study, desk, briefcase           |
+| `hallway`      | Hallway       | area     | door, entrance, entry, corridor        |
+| `garden`       | Garden        | area     | flower, plants, yard                   |
+| `outdoor`      | Outdoor       | area     | tree, terrace, patio, outside          |
+| `sun`          | Sun           | area     | patio, terrace, bright, weather        |
+| `home`         | Home          | area     | house, whole home                      |
+| `building`     | Building      | area     | apartment, flat, office building       |
 
 <!-- GENERATED:END -->
 
@@ -66,20 +66,19 @@ jsDelivr, e.g. `https://cdn.jsdelivr.net/gh/music-assistant/shared-icons@main/ic
 
 These rules are what make it safe for clients to bundle the icons:
 
-1. **Ids are stable forever.** An id is never renamed and never removed. Renames
-   happen by adding the new id and keeping the old one as an alias.
+1. **Ids are stable forever.** An id is never renamed and never removed. If a
+   better name is ever wanted, a new id is added and the old one stays valid.
 2. **The set only grows — slowly.** Additions require a real, recurring need
    (not one person's device) and design review. Clients ship the whole set, so
    restraint is a feature.
 3. **Unknown id → render `speaker`.** The manifest's `fallback` field is the single
    fallback for every client. A client on an older icon set must degrade gracefully
    when the server serves an id it doesn't know yet.
-4. **Aliases resolve, they don't render.** Clients must resolve an alias to its
-   canonical id before lookup. Aliases exist for legacy values and upstream renames;
-   they are globally unique and never collide with ids.
-5. **`mdi` is a downgrade mapping, not an identity.** It names the closest MDI icon
-   for contexts that can only display MDI (e.g. Home Assistant entities) and drives
-   the one-time migration of legacy `mdi-*` values stored in player configs.
+4. **Ids are the whole contract.** Clients never see legacy values: the server
+   migrates previously stored icon names (old `mdi-*` values and pre-1.0 picker
+   names) to canonical ids in a one-time update, using
+   [`migration/legacy-map.json`](migration/legacy-map.json) — a temporary handoff
+   file that moves into the server and is deleted once that migration ships.
 
 ## Manifest format
 
@@ -90,10 +89,12 @@ These rules are what make it safe for clients to bundle the icons:
   "category": "device", // device | player | media | area
   "source": { "set": "custom" }, // custom, or vendored: { set, name, version }
   "keywords": ["apple", "smart speaker"], // extra picker search terms
-  "aliases": ["homepod"], // legacy/alternate ids resolving here
-  "mdi": "mdi-speaker", // closest MDI equivalent
 }
 ```
+
+The `source` field is provenance (licensing) — but it also tells component-based
+clients how to render an id without a hand-maintained mapping: `custom` icons come
+from this repo's artwork, vendored ones name their upstream icon and version.
 
 The full schema lives in [`schema/manifest.schema.json`](schema/manifest.schema.json)
 and is enforced in CI together with the SVG rules below (`node scripts/validate.mjs`).
@@ -117,20 +118,25 @@ and is enforced in CI together with the SVG rules below (`node scripts/validate.
 
 ## Using the icons
 
-**Web frontend** => depend on the npm package and import SVGs or read the manifest:
+This repo is a versioned source of truth, not a runtime dependency: nobody installs
+it, every client syncs from tagged releases.
 
-```ts
-import manifest from "@music-assistant/shared-icons/manifest.json"
-import speaker from "@music-assistant/shared-icons/icons/speaker.svg"
-```
+**Web frontend** — vendor a copy of `manifest.json` (refreshed at each tag) to drive
+the icon picker and to know the legal ids. Rendering keeps using the frontend's own
+icon components, resolved via each entry's `source` field: `custom` → the matching
+MA icon component, `lucide` → the `source.name` component from `@lucide/vue`. Keep
+the installed Lucide version aligned with the manifest's `source.version`; when
+bumping it, re-vendor this repo's SVGs in the same change so all clients stay
+visually in sync.
 
-**Mobile (Kotlin Multiplatform)** => fetch a tagged release of this repo at build
-time and convert `icons/*.svg` to vector assets. Ids map 1:1 to file names; apply
-the alias and fallback rules from the manifest.
+**Mobile (Kotlin Multiplatform)** — at each tag, download `icons/*.svg` and convert
+them to vector assets (ids map 1:1 to file names), maintaining an id → asset map.
+Render the `fallback` icon for unknown ids.
 
-**Server** => serves icon ids only (player `icon` config entries). The manifest can
-be used to validate values and to migrate stored legacy `mdi-*` names via the `mdi`
-field.
+**Server** — stores and serves icon ids only (player `icon` config entries), with
+`speaker` / `speakers` as defaults. A one-time startup migration converts previously
+stored legacy names using [`migration/legacy-map.json`](migration/legacy-map.json);
+unmapped values drop to the default.
 
 ## Adding an icon
 
@@ -138,21 +144,19 @@ field.
 2. Prefer vendoring from [Lucide](https://lucide.dev) or [Tabler](https://tabler.io/icons);
    only draw custom artwork for things those sets don't have.
 3. Add `icons/<id>.svg` following the artwork rules.
-4. Add the manifest entry (id, name, category, source, keywords, aliases, mdi).
+4. Add the manifest entry (id, name, category, source, keywords).
 5. Run `node scripts/validate.mjs && node scripts/generate-docs.mjs` (the second
    command refreshes the README table, `docs/preview.svg` and the gallery — CI
    fails if they're stale) and open a PR.
 
 ## Versioning & releases
 
-The set is versioned semantically in `manifest.json` and `package.json`:
+The set is versioned semantically in `manifest.json`, and a release is simply a git
+tag (`v1.0.0`) — clients sync from tags, nothing is published to any registry:
 
-- **patch** => artwork tweaks, keyword/alias additions, metadata fixes
-- **minor** => new icons
-- **major** => never, if we do our job right (the contract forbids breaking changes)
-
-Each release is published as an npm package (web) and a git tag / release tarball
-(mobile asset pipeline).
+- **patch** — artwork tweaks, keyword additions, metadata fixes
+- **minor** — new icons
+- **major** — never, if we do our job right (the contract forbids breaking changes)
 
 ## License
 

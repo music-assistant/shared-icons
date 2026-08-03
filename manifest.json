@@ -1,277 +1,447 @@
 {
   "$schema": "./schema/manifest.schema.json",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "fallback": "speaker",
   "icons": [
     {
       "id": "homepod-mini",
       "name": "HomePod mini",
       "category": "device",
-      "source": { "set": "custom" },
-      "keywords": ["apple", "smart speaker", "siri"],
-      "aliases": ["homepod", "apple-homepod-mini"],
-      "mdi": "mdi-speaker"
+      "source": {
+        "set": "custom"
+      },
+      "keywords": [
+        "apple",
+        "smart speaker",
+        "siri",
+        "homepod"
+      ]
     },
     {
       "id": "sonos",
       "name": "Sonos",
       "category": "device",
-      "source": { "set": "custom" },
-      "keywords": ["speaker", "smart speaker"],
-      "aliases": [],
-      "mdi": "mdi-speaker"
+      "source": {
+        "set": "custom"
+      },
+      "keywords": [
+        "speaker",
+        "smart speaker"
+      ]
     },
     {
       "id": "mac",
       "name": "Mac",
       "category": "device",
-      "source": { "set": "custom" },
-      "keywords": ["apple", "computer", "macbook"],
-      "aliases": [],
-      "mdi": "mdi-laptop"
+      "source": {
+        "set": "custom"
+      },
+      "keywords": [
+        "apple",
+        "computer",
+        "macbook"
+      ]
     },
     {
       "id": "apple-tv",
       "name": "Apple TV",
       "category": "device",
-      "source": { "set": "custom" },
-      "keywords": ["apple", "media box", "set-top box"],
-      "aliases": ["appletv"],
-      "mdi": "mdi-apple"
+      "source": {
+        "set": "custom"
+      },
+      "keywords": [
+        "apple",
+        "media box",
+        "set-top box",
+        "appletv"
+      ]
     },
     {
       "id": "speaker",
       "name": "Speaker",
       "category": "player",
-      "source": { "set": "lucide", "name": "speaker", "version": "1.24.0" },
-      "keywords": ["audio", "hifi"],
-      "aliases": [],
-      "mdi": "mdi-speaker"
+      "source": {
+        "set": "lucide",
+        "name": "speaker",
+        "version": "1.24.0"
+      },
+      "keywords": [
+        "audio",
+        "hifi"
+      ]
     },
     {
       "id": "speakers",
       "name": "Speaker group",
       "category": "player",
-      "source": { "set": "custom" },
-      "keywords": ["group", "pair", "stereo", "multiple"],
-      "aliases": ["speaker-multiple", "speaker-group"],
-      "mdi": "mdi-speaker-multiple"
+      "source": {
+        "set": "custom"
+      },
+      "keywords": [
+        "group",
+        "pair",
+        "stereo",
+        "multiple"
+      ]
     },
     {
       "id": "radio",
       "name": "Radio",
       "category": "player",
-      "source": { "set": "lucide", "name": "radio", "version": "1.24.0" },
-      "keywords": ["tuner", "fm", "receiver"],
-      "aliases": [],
-      "mdi": "mdi-radio"
+      "source": {
+        "set": "lucide",
+        "name": "radio",
+        "version": "1.24.0"
+      },
+      "keywords": [
+        "tuner",
+        "fm",
+        "receiver"
+      ]
     },
     {
       "id": "tv",
       "name": "TV",
       "category": "player",
-      "source": { "set": "lucide", "name": "tv", "version": "1.24.0" },
-      "keywords": ["television", "screen"],
-      "aliases": ["television"],
-      "mdi": "mdi-television"
+      "source": {
+        "set": "lucide",
+        "name": "tv",
+        "version": "1.24.0"
+      },
+      "keywords": [
+        "television",
+        "screen"
+      ]
     },
     {
       "id": "monitor",
       "name": "Monitor",
       "category": "player",
-      "source": { "set": "lucide", "name": "monitor", "version": "1.24.0" },
-      "keywords": ["screen", "desktop", "display", "computer"],
-      "aliases": [],
-      "mdi": "mdi-monitor"
+      "source": {
+        "set": "lucide",
+        "name": "monitor",
+        "version": "1.24.0"
+      },
+      "keywords": [
+        "screen",
+        "desktop",
+        "display",
+        "computer"
+      ]
     },
     {
       "id": "laptop",
       "name": "Laptop",
       "category": "player",
-      "source": { "set": "lucide", "name": "laptop-minimal", "version": "1.24.0" },
-      "keywords": ["computer", "notebook"],
-      "aliases": ["laptop-2", "laptop-minimal"],
-      "mdi": "mdi-laptop"
+      "source": {
+        "set": "lucide",
+        "name": "laptop-minimal",
+        "version": "1.24.0"
+      },
+      "keywords": [
+        "computer",
+        "notebook"
+      ]
     },
     {
       "id": "headphones",
       "name": "Headphones",
       "category": "player",
-      "source": { "set": "lucide", "name": "headphones", "version": "1.24.0" },
-      "keywords": ["headset", "audio"],
-      "aliases": [],
-      "mdi": "mdi-headphones"
+      "source": {
+        "set": "lucide",
+        "name": "headphones",
+        "version": "1.24.0"
+      },
+      "keywords": [
+        "headset",
+        "audio"
+      ]
     },
     {
       "id": "bluetooth",
       "name": "Bluetooth",
       "category": "player",
-      "source": { "set": "lucide", "name": "bluetooth", "version": "1.24.0" },
-      "keywords": ["wireless", "speaker"],
-      "aliases": ["bluetooth-speaker"],
-      "mdi": "mdi-bluetooth"
+      "source": {
+        "set": "lucide",
+        "name": "bluetooth",
+        "version": "1.24.0"
+      },
+      "keywords": [
+        "wireless",
+        "speaker"
+      ]
     },
     {
       "id": "airplay",
       "name": "AirPlay",
       "category": "player",
-      "source": { "set": "lucide", "name": "airplay", "version": "1.24.0" },
-      "keywords": ["apple", "streaming"],
-      "aliases": [],
-      "mdi": "mdi-cast-variant"
+      "source": {
+        "set": "lucide",
+        "name": "airplay",
+        "version": "1.24.0"
+      },
+      "keywords": [
+        "apple",
+        "streaming"
+      ]
     },
     {
       "id": "cast",
       "name": "Cast",
       "category": "player",
-      "source": { "set": "lucide", "name": "cast", "version": "1.24.0" },
-      "keywords": ["chromecast", "google", "streaming"],
-      "aliases": [],
-      "mdi": "mdi-cast"
+      "source": {
+        "set": "lucide",
+        "name": "cast",
+        "version": "1.24.0"
+      },
+      "keywords": [
+        "chromecast",
+        "google",
+        "streaming"
+      ]
     },
     {
       "id": "car",
       "name": "Car",
       "category": "player",
-      "source": { "set": "lucide", "name": "car", "version": "1.24.0" },
-      "keywords": ["auto", "vehicle", "garage"],
-      "aliases": [],
-      "mdi": "mdi-car"
+      "source": {
+        "set": "lucide",
+        "name": "car",
+        "version": "1.24.0"
+      },
+      "keywords": [
+        "auto",
+        "vehicle",
+        "garage"
+      ]
     },
     {
       "id": "music",
       "name": "Music",
       "category": "media",
-      "source": { "set": "lucide", "name": "music", "version": "1.24.0" },
-      "keywords": ["note", "song"],
-      "aliases": ["music-2"],
-      "mdi": "mdi-music"
+      "source": {
+        "set": "lucide",
+        "name": "music",
+        "version": "1.24.0"
+      },
+      "keywords": [
+        "note",
+        "song"
+      ]
     },
     {
       "id": "vinyl",
       "name": "Vinyl",
       "category": "media",
-      "source": { "set": "lucide", "name": "disc-3", "version": "1.24.0" },
-      "keywords": ["record", "disc", "turntable", "lp"],
-      "aliases": ["disc-3"],
-      "mdi": "mdi-album"
+      "source": {
+        "set": "lucide",
+        "name": "disc-3",
+        "version": "1.24.0"
+      },
+      "keywords": [
+        "record",
+        "disc",
+        "turntable",
+        "lp"
+      ]
     },
     {
       "id": "mic",
       "name": "Microphone",
       "category": "media",
-      "source": { "set": "lucide", "name": "mic", "version": "1.24.0" },
-      "keywords": ["karaoke", "voice", "vocal"],
-      "aliases": ["microphone"],
-      "mdi": "mdi-microphone"
+      "source": {
+        "set": "lucide",
+        "name": "mic",
+        "version": "1.24.0"
+      },
+      "keywords": [
+        "karaoke",
+        "voice",
+        "vocal",
+        "microphone"
+      ]
     },
     {
       "id": "volume",
       "name": "Volume",
       "category": "media",
-      "source": { "set": "lucide", "name": "volume-2", "version": "1.24.0" },
-      "keywords": ["loud", "sound"],
-      "aliases": ["volume-2", "speaker-loud"],
-      "mdi": "mdi-volume-high"
+      "source": {
+        "set": "lucide",
+        "name": "volume-2",
+        "version": "1.24.0"
+      },
+      "keywords": [
+        "loud",
+        "sound"
+      ]
     },
     {
       "id": "living-room",
       "name": "Living room",
       "category": "area",
-      "source": { "set": "lucide", "name": "sofa", "version": "1.24.0" },
-      "keywords": ["sofa", "couch", "lounge"],
-      "aliases": ["sofa"],
-      "mdi": "mdi-sofa"
+      "source": {
+        "set": "lucide",
+        "name": "sofa",
+        "version": "1.24.0"
+      },
+      "keywords": [
+        "sofa",
+        "couch",
+        "lounge"
+      ]
     },
     {
       "id": "bedroom",
       "name": "Bedroom",
       "category": "area",
-      "source": { "set": "lucide", "name": "bed-double", "version": "1.24.0" },
-      "keywords": ["bed", "sleep"],
-      "aliases": ["bed-double", "bed"],
-      "mdi": "mdi-bed"
+      "source": {
+        "set": "lucide",
+        "name": "bed-double",
+        "version": "1.24.0"
+      },
+      "keywords": [
+        "bed",
+        "sleep"
+      ]
     },
     {
       "id": "bathroom",
       "name": "Bathroom",
       "category": "area",
-      "source": { "set": "lucide", "name": "bath", "version": "1.24.0" },
-      "keywords": ["bath", "tub", "shower"],
-      "aliases": ["bath"],
-      "mdi": "mdi-bathtub"
+      "source": {
+        "set": "lucide",
+        "name": "bath",
+        "version": "1.24.0"
+      },
+      "keywords": [
+        "bath",
+        "tub",
+        "shower"
+      ]
     },
     {
       "id": "kitchen",
       "name": "Kitchen",
       "category": "area",
-      "source": { "set": "lucide", "name": "utensils", "version": "1.24.0" },
-      "keywords": ["cooking", "dining", "utensils", "fork"],
-      "aliases": ["utensils"],
-      "mdi": "mdi-silverware-fork-knife"
+      "source": {
+        "set": "lucide",
+        "name": "utensils",
+        "version": "1.24.0"
+      },
+      "keywords": [
+        "cooking",
+        "dining",
+        "utensils",
+        "fork"
+      ]
     },
     {
       "id": "office",
       "name": "Office",
       "category": "area",
-      "source": { "set": "lucide", "name": "briefcase", "version": "1.24.0" },
-      "keywords": ["work", "study", "desk"],
-      "aliases": ["briefcase"],
-      "mdi": "mdi-briefcase"
+      "source": {
+        "set": "lucide",
+        "name": "briefcase",
+        "version": "1.24.0"
+      },
+      "keywords": [
+        "work",
+        "study",
+        "desk",
+        "briefcase"
+      ]
     },
     {
       "id": "hallway",
       "name": "Hallway",
       "category": "area",
-      "source": { "set": "lucide", "name": "door-open", "version": "1.24.0" },
-      "keywords": ["door", "entrance", "entry", "corridor"],
-      "aliases": ["door-open"],
-      "mdi": "mdi-door-open"
+      "source": {
+        "set": "lucide",
+        "name": "door-open",
+        "version": "1.24.0"
+      },
+      "keywords": [
+        "door",
+        "entrance",
+        "entry",
+        "corridor"
+      ]
     },
     {
       "id": "garden",
       "name": "Garden",
       "category": "area",
-      "source": { "set": "lucide", "name": "flower-2", "version": "1.24.0" },
-      "keywords": ["flower", "plants", "yard"],
-      "aliases": ["flower-2", "flower"],
-      "mdi": "mdi-flower"
+      "source": {
+        "set": "lucide",
+        "name": "flower-2",
+        "version": "1.24.0"
+      },
+      "keywords": [
+        "flower",
+        "plants",
+        "yard"
+      ]
     },
     {
       "id": "outdoor",
       "name": "Outdoor",
       "category": "area",
-      "source": { "set": "lucide", "name": "tree-pine", "version": "1.24.0" },
-      "keywords": ["tree", "terrace", "patio", "outside"],
-      "aliases": ["tree", "tree-pine"],
-      "mdi": "mdi-pine-tree"
+      "source": {
+        "set": "lucide",
+        "name": "tree-pine",
+        "version": "1.24.0"
+      },
+      "keywords": [
+        "tree",
+        "terrace",
+        "patio",
+        "outside"
+      ]
     },
     {
       "id": "sun",
       "name": "Sun",
       "category": "area",
-      "source": { "set": "lucide", "name": "sun", "version": "1.24.0" },
-      "keywords": ["patio", "terrace", "bright", "weather"],
-      "aliases": [],
-      "mdi": "mdi-weather-sunny"
+      "source": {
+        "set": "lucide",
+        "name": "sun",
+        "version": "1.24.0"
+      },
+      "keywords": [
+        "patio",
+        "terrace",
+        "bright",
+        "weather"
+      ]
     },
     {
       "id": "home",
       "name": "Home",
       "category": "area",
-      "source": { "set": "lucide", "name": "house", "version": "1.24.0" },
-      "keywords": ["house", "whole home"],
-      "aliases": ["house"],
-      "mdi": "mdi-home"
+      "source": {
+        "set": "lucide",
+        "name": "house",
+        "version": "1.24.0"
+      },
+      "keywords": [
+        "house",
+        "whole home"
+      ]
     },
     {
       "id": "building",
       "name": "Building",
       "category": "area",
-      "source": { "set": "lucide", "name": "building", "version": "1.24.0" },
-      "keywords": ["apartment", "flat", "office building"],
-      "aliases": [],
-      "mdi": "mdi-office-building"
+      "source": {
+        "set": "lucide",
+        "name": "building",
+        "version": "1.24.0"
+      },
+      "keywords": [
+        "apartment",
+        "flat",
+        "office building"
+      ]
     }
   ]
 }

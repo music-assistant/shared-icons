@@ -6,7 +6,7 @@
   .v { font-size: 12px; text-anchor: end; }
 </style>
 <g color="#848d97">
-<text class="v" x="756" y="32">v0.1.0 · 30 icons</text>
+<text class="v" x="756" y="32">v0.2.0 · 30 icons</text>
 <text class="h" x="20" y="32">Device</text>
 <svg x="50" y="46" width="32" height="32" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none">
     <g transform="scale(0.75)">

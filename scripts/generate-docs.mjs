@@ -79,24 +79,13 @@ const sections = byCategory
   .map(([cat, list]) => {
     const cards = list
       .map((icon) => {
-        const search = [
-          icon.id,
-          icon.name,
-          icon.category,
-          ...icon.keywords,
-          ...icon.aliases,
-          icon.mdi,
-        ]
+        const search = [icon.id, icon.name, icon.category, ...icon.keywords]
           .join(" ")
           .toLowerCase();
-        const aliases = icon.aliases.length
-          ? `<span class="aliases">aka ${icon.aliases.join(", ")}</span>`
-          : "";
         return `<div class="card" data-search="${search}">
   ${svgById.get(icon.id)}
   <code>${icon.id}</code>
   <span class="name">${icon.name}</span>
-  ${aliases}
 </div>`;
       })
       .join("\n");
@@ -132,14 +121,14 @@ const indexHtml = `<!doctype html>
   .card { display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 18px 8px 14px; background: var(--card); border: 1px solid var(--border); border-radius: 10px; text-align: center; }
   .card svg { width: 32px; height: 32px; margin-bottom: 6px; }
   .card code { font-size: 12px; }
-  .card .name, .card .aliases { font-size: 11px; color: var(--muted); }
+  .card .name { font-size: 11px; color: var(--muted); }
   .empty { color: var(--muted); }
   footer { margin-top: 48px; font-size: 13px; color: var(--muted); }
   footer a { color: inherit; }
 </style>
 <h1>Music Assistant icons <small>v${manifest.version}</small></h1>
 <p class="sub">The shared icon set used by every Music Assistant client — one stable id per icon, rendered identically everywhere. <a href="${REPO_URL}">Repository</a></p>
-<input id="q" type="search" placeholder="Filter by id, name, alias or keyword…" autofocus>
+<input id="q" type="search" placeholder="Filter by id, name or keyword…" autofocus>
 ${sections}
 <p class="empty" hidden>No icons match.</p>
 <footer>Unknown ids fall back to <code>${manifest.fallback}</code>. Apache-2.0; vendored icons remain under their upstream licenses — see <a href="${REPO_URL}/blob/main/ATTRIBUTION.md">attribution</a>.</footer>
@@ -164,13 +153,12 @@ ${sections}
 // --- README table between the GENERATED markers ------------------------------
 // Columns are padded prettier-style so format-on-save doesn't reformat the
 // generated block (which would trip the CI freshness check).
-const header = ["Id", "Name", "Category", "Aliases", "MDI fallback"];
+const header = ["Id", "Name", "Category", "Keywords"];
 const rows = manifest.icons.map((icon) => [
   `\`${icon.id}\``,
   icon.name,
   icon.category,
-  icon.aliases.map((a) => `\`${a}\``).join(", ") || "—",
-  `\`${icon.mdi}\``,
+  icon.keywords.join(", ") || "—",
 ]);
 const widths = header.map((h, c) => Math.max(h.length, ...rows.map((r) => r[c].length)));
 const toLine = (cells) => `| ${cells.map((cell, c) => cell.padEnd(widths[c])).join(" | ")} |`;

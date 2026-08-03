@@ -22,7 +22,6 @@ if (!/^\d+\.\d+\.\d+$/.test(manifest.version ?? "")) {
 }
 
 const ids = new Set();
-const aliasOwner = new Map();
 
 for (const icon of manifest.icons ?? []) {
   const ctx = `icon "${icon.id}"`;
@@ -39,23 +38,9 @@ for (const icon of manifest.icons ?? []) {
   } else if (icon.source.set !== "custom" && !icon.source.name) {
     fail(`${ctx}: non-custom source requires source.name`);
   }
-  if (!/^mdi-[a-z0-9-]+$/.test(icon.mdi ?? "")) {
-    fail(`${ctx}: mdi "${icon.mdi}" must match mdi-<kebab-name>`);
-  }
   if (!Array.isArray(icon.keywords)) fail(`${ctx}: keywords must be an array`);
-
-  for (const alias of icon.aliases ?? []) {
-    if (!KEBAB.test(alias)) fail(`${ctx}: alias "${alias}" is not kebab-case`);
-    if (aliasOwner.has(alias)) {
-      fail(`${ctx}: alias "${alias}" already used by "${aliasOwner.get(alias)}"`);
-    }
-    aliasOwner.set(alias, icon.id);
-  }
 }
 
-for (const alias of aliasOwner.keys()) {
-  if (ids.has(alias)) fail(`alias "${alias}" collides with an icon id`);
-}
 if (!ids.has(manifest.fallback)) {
   fail(`manifest: fallback "${manifest.fallback}" is not a known icon id`);
 }
@@ -104,6 +89,4 @@ if (errors.length) {
   for (const e of errors) console.error(`  - ${e}`);
   process.exit(1);
 }
-console.log(
-  `✓ manifest v${manifest.version}: ${ids.size} icons, ${aliasOwner.size} aliases, all checks passed`,
-);
+console.log(`✓ manifest v${manifest.version}: ${ids.size} icons, all checks passed`);
