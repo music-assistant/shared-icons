@@ -14,8 +14,9 @@ frontend's icon choices leak into other clients. This repo replaces that with:
   `"speaker"` or `"kitchen"`, it knows nothing about icon libraries.
 - **One SVG per id** as the canonical artwork every client renders, whether it uses
   the files directly or maps ids to equivalent icon components.
-- **A machine-readable [`manifest.json`](manifest.json)** describing every icon:
-  its category, search keywords, and artwork source.
+- **A machine-readable [`manifest.json`](manifest.json)** that is nothing but the
+  contract: the list of ids and the fallback. Everything presentational lives in
+  the non-normative [`meta.json`](meta.json).
 
 ## The set
 
@@ -82,22 +83,26 @@ These rules are what make it safe for clients to bundle the icons:
 
 ## Manifest format
 
+The manifest is deliberately minimal — the smaller the shared spec, the fewer
+changes clients ever need to care about:
+
 ```jsonc
 {
-  "id": "homepod-mini", // canonical, kebab-case, stable forever
-  "name": "HomePod mini", // human label for pickers
-  "category": "device", // device | player | media | area
-  "source": { "set": "custom" }, // custom, or vendored: { set, name, version }
-  "keywords": ["apple", "smart speaker"], // extra picker search terms
+  "version": "1.0.0", // semver of the set
+  "fallback": "speaker", // rendered for unknown ids
+  "icons": ["speaker", "speakers", "tv" /* … */], // canonical, kebab-case, stable forever
 }
 ```
 
-The `source` field is provenance (licensing) — but it also tells component-based
-clients how to render an id without a hand-maintained mapping: `custom` icons come
-from this repo's artwork, vendored ones name their upstream icon and version.
+Ids map 1:1 to `icons/<id>.svg`. The full schema lives in
+[`schema/manifest.schema.json`](schema/manifest.schema.json) and is enforced in CI
+together with the SVG rules below (`node scripts/validate.mjs`).
 
-The full schema lives in [`schema/manifest.schema.json`](schema/manifest.schema.json)
-and is enforced in CI together with the SVG rules below (`node scripts/validate.mjs`).
+Display names, gallery categories, picker search terms and artwork provenance
+(upstream set/name/version — needed for attribution and re-vendoring) live in
+[`meta.json`](meta.json). That file is **not part of the contract**: clients don't
+read it, entries can change freely, and clients are free to label, translate,
+group and search the icons however fits their UI.
 
 ## Artwork rules
 
@@ -121,13 +126,13 @@ and is enforced in CI together with the SVG rules below (`node scripts/validate.
 This repo is a versioned source of truth, not a runtime dependency: nobody installs
 it, every client syncs from tagged releases.
 
-**Web frontend** — vendor a copy of `manifest.json` (refreshed at each tag) to drive
-the icon picker and to know the legal ids. Rendering keeps using the frontend's own
-icon components, resolved via each entry's `source` field: `custom` → the matching
-MA icon component, `lucide` → the `source.name` component from `@lucide/vue`. Keep
-the installed Lucide version aligned with the manifest's `source.version`; when
-bumping it, re-vendor this repo's SVGs in the same change so all clients stay
-visually in sync.
+**Web frontend** — vendor a copy of `manifest.json` (refreshed at each tag) to know
+the legal ids and the fallback. The picker offers exactly those ids; the frontend
+owns its id → component map (custom MA components + `@lucide/vue` components), its
+own translated labels, and its own search/grouping. `meta.json` is a handy reference
+when building that map, nothing more. Keep the installed Lucide version aligned with
+the versions recorded in `meta.json`; when bumping it, re-vendor this repo's SVGs in
+the same change so all clients stay visually in sync.
 
 **Mobile (Kotlin Multiplatform)** — at each tag, download `icons/*.svg` and convert
 them to vector assets (ids map 1:1 to file names), maintaining an id → asset map.
@@ -144,7 +149,8 @@ unmapped values drop to the default.
 2. Prefer vendoring from [Lucide](https://lucide.dev) or [Tabler](https://tabler.io/icons);
    only draw custom artwork for things those sets don't have.
 3. Add `icons/<id>.svg` following the artwork rules.
-4. Add the manifest entry (id, name, category, source, keywords).
+4. Add the id to `manifest.json` and its metadata (name, category, source,
+   keywords) to `meta.json`.
 5. Run `node scripts/validate.mjs && node scripts/generate-docs.mjs` (the second
    command refreshes the README table, `docs/preview.svg` and the gallery — CI
    fails if they're stale) and open a PR.

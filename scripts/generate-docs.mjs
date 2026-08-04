@@ -11,13 +11,18 @@ const REPO_URL = "https://github.com/music-assistant/shared-icons";
 const CATEGORIES = ["device", "player", "media", "area"];
 
 const manifest = JSON.parse(await readFile(join(ROOT, "manifest.json"), "utf8"));
+const meta = JSON.parse(await readFile(join(ROOT, "meta.json"), "utf8"));
+
+// The manifest is ids-only (the contract); display names, categories and
+// keywords come from the non-normative meta.json.
+const icons = manifest.icons.map((id) => ({ id, ...meta.icons[id] }));
 const byCategory = CATEGORIES.map((cat) => [
   cat,
-  manifest.icons.filter((i) => i.category === cat),
+  icons.filter((i) => i.category === cat),
 ]);
 
 const svgById = new Map();
-for (const icon of manifest.icons) {
+for (const icon of icons) {
   const raw = await readFile(join(ROOT, "icons", `${icon.id}.svg`), "utf8");
   svgById.set(icon.id, raw.replace(/<!--[\s\S]*?-->\n?/g, "").trim());
 }
@@ -154,7 +159,7 @@ ${sections}
 // Columns are padded prettier-style so format-on-save doesn't reformat the
 // generated block (which would trip the CI freshness check).
 const header = ["Id", "Name", "Category", "Keywords"];
-const rows = manifest.icons.map((icon) => [
+const rows = icons.map((icon) => [
   `\`${icon.id}\``,
   icon.name,
   icon.category,

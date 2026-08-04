@@ -1,6 +1,6 @@
 # Third-party attribution
 
-Icons whose `source.set` in [`manifest.json`](manifest.json) is not `custom` are
+Icons whose `source.set` in [`meta.json`](meta.json) is not `custom` are
 vendored from the following upstream sets and remain under their original licenses.
 
 ## Lucide
@@ -8,7 +8,7 @@ vendored from the following upstream sets and remain under their original licens
 - Website: https://lucide.dev
 - License: ISC — https://lucide.dev/license
 - Vendored from the `@lucide/vue` npm package; the exact upstream name and package
-  version for each icon are recorded in the manifest's `source` field.
+  version for each icon are recorded in `meta.json`'s `source` field.
 
 > ISC License
 >

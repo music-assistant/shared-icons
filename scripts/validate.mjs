@@ -14,7 +14,7 @@ const SOURCE_SETS = new Set(["custom", "lucide", "tabler"]);
 const errors = [];
 const fail = (msg) => errors.push(msg);
 
-// --- manifest -------------------------------------------------------------
+// --- manifest (the contract: ids + fallback) --------------------------------
 const manifest = JSON.parse(await readFile(join(ROOT, "manifest.json"), "utf8"));
 
 if (!/^\d+\.\d+\.\d+$/.test(manifest.version ?? "")) {
@@ -22,27 +22,38 @@ if (!/^\d+\.\d+\.\d+$/.test(manifest.version ?? "")) {
 }
 
 const ids = new Set();
-
-for (const icon of manifest.icons ?? []) {
-  const ctx = `icon "${icon.id}"`;
-  if (!KEBAB.test(icon.id ?? "")) fail(`${ctx}: id is not kebab-case`);
-  if (ids.has(icon.id)) fail(`${ctx}: duplicate id`);
-  ids.add(icon.id);
-
-  if (!icon.name) fail(`${ctx}: missing name`);
-  if (!CATEGORIES.has(icon.category)) {
-    fail(`${ctx}: unknown category "${icon.category}"`);
-  }
-  if (!SOURCE_SETS.has(icon.source?.set)) {
-    fail(`${ctx}: unknown source set "${icon.source?.set}"`);
-  } else if (icon.source.set !== "custom" && !icon.source.name) {
-    fail(`${ctx}: non-custom source requires source.name`);
-  }
-  if (!Array.isArray(icon.keywords)) fail(`${ctx}: keywords must be an array`);
+for (const id of manifest.icons ?? []) {
+  if (!KEBAB.test(id ?? "")) fail(`icon "${id}": id is not kebab-case`);
+  if (ids.has(id)) fail(`icon "${id}": duplicate id`);
+  ids.add(id);
 }
-
 if (!ids.has(manifest.fallback)) {
   fail(`manifest: fallback "${manifest.fallback}" is not a known icon id`);
+}
+
+// --- meta.json (non-normative, but must stay complete and well-formed) ------
+const meta = JSON.parse(await readFile(join(ROOT, "meta.json"), "utf8"));
+
+for (const id of ids) {
+  const entry = meta.icons?.[id];
+  const ctx = `meta "${id}"`;
+  if (!entry) {
+    fail(`${ctx}: missing meta.json entry`);
+    continue;
+  }
+  if (!entry.name) fail(`${ctx}: missing name`);
+  if (!CATEGORIES.has(entry.category)) {
+    fail(`${ctx}: unknown category "${entry.category}"`);
+  }
+  if (!SOURCE_SETS.has(entry.source?.set)) {
+    fail(`${ctx}: unknown source set "${entry.source?.set}"`);
+  } else if (entry.source.set !== "custom" && !entry.source.name) {
+    fail(`${ctx}: non-custom source requires source.name`);
+  }
+  if (!Array.isArray(entry.keywords)) fail(`${ctx}: keywords must be an array`);
+}
+for (const id of Object.keys(meta.icons ?? {})) {
+  if (!ids.has(id)) fail(`meta "${id}": not a manifest.json id`);
 }
 
 // --- icons/ <-> manifest sync ----------------------------------------------

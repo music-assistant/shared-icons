@@ -2,6 +2,7 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://github.com/music-assistant/shared-icons/schema/manifest.schema.json",
   "title": "Music Assistant shared icons manifest",
+  "description": "The icon-set contract: the list of canonical icon ids plus the fallback. Everything else (display names, categories, keywords, artwork provenance) is non-normative metadata in meta.json and is deliberately kept out of this schema.",
   "type": "object",
   "required": ["version", "fallback", "icons"],
   "additionalProperties": false,
@@ -13,60 +14,22 @@
       "pattern": "^\\d+\\.\\d+\\.\\d+$"
     },
     "fallback": {
-      "type": "string",
       "description": "Icon id clients must render when they encounter an unknown id.",
       "$ref": "#/definitions/iconId"
     },
     "icons": {
       "type": "array",
+      "description": "Every canonical icon id. Ids are stable forever: never renamed, never removed.",
       "minItems": 1,
-      "items": { "$ref": "#/definitions/icon" }
+      "uniqueItems": true,
+      "items": { "$ref": "#/definitions/iconId" }
     }
   },
   "definitions": {
     "iconId": {
       "type": "string",
-      "description": "Kebab-case identifier. Stable forever: never renamed, never removed.",
+      "description": "Kebab-case identifier. Maps 1:1 to icons/<id>.svg.",
       "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
-    },
-    "icon": {
-      "type": "object",
-      "required": ["id", "name", "category", "source", "keywords"],
-      "additionalProperties": false,
-      "properties": {
-        "id": { "$ref": "#/definitions/iconId" },
-        "name": {
-          "type": "string",
-          "description": "Human-readable label, used in pickers."
-        },
-        "category": {
-          "type": "string",
-          "description": "Picker grouping.",
-          "enum": ["device", "player", "media", "area"]
-        },
-        "source": {
-          "type": "object",
-          "description": "Where the artwork comes from. Custom icons live in this repo; vendored icons record their upstream set, name and version.",
-          "required": ["set"],
-          "additionalProperties": false,
-          "properties": {
-            "set": { "type": "string", "enum": ["custom", "lucide", "tabler"] },
-            "name": {
-              "type": "string",
-              "description": "Upstream icon name (required for non-custom sources)."
-            },
-            "version": {
-              "type": "string",
-              "description": "Upstream package version the SVG was vendored from."
-            }
-          }
-        },
-        "keywords": {
-          "type": "array",
-          "description": "Extra search terms for pickers. Lowercase.",
-          "items": { "type": "string" }
-        }
-      }
     }
   }
 }
