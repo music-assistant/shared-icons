@@ -125,8 +125,9 @@ group and search the icons however fits their UI.
 
 > **Note:** the four original custom icons (`apple-tv`, `mac`, `homepod-mini`,
 > `sonos`) were authored on larger grids and are currently normalized with a scale
-> transform, and `speakers` is a first draft. A design pass redrawing them natively
-> on the 24×24 grid is welcome.
+> transform, `speakers` is a first draft, and `soundbar` uses a 1.5 stroke for
+> detail. A design pass redrawing them natively on the 24×24 grid (stroke 2 where
+> feasible) is welcome.
 
 ## Using the icons
 
@@ -147,8 +148,10 @@ Render the `fallback` icon for unknown ids.
 
 **Server** — stores and serves icon ids only (player `icon` config entries), with
 `speaker` / `speakers` as defaults. A one-time startup migration converts previously
-stored legacy names using [`migration/legacy-map.json`](migration/legacy-map.json);
-unmapped values drop to the default.
+stored legacy names using [`migration/legacy-map.json`](migration/legacy-map.json):
+values already canonical are untouched, mapped values are rewritten, unmappable
+`mdi-*` values drop to the default, and any other unknown value is left in place
+(clients render the fallback for it).
 
 ## Adding an icon
 

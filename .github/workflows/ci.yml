@@ -18,4 +18,5 @@ jobs:
       - name: Check generated docs are up to date
         run: |
           node scripts/generate-docs.mjs
+          git add -N docs
           git diff --exit-code README.md docs/

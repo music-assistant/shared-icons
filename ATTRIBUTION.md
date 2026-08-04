@@ -1,5 +1,10 @@
 # Third-party attribution
 
+Some custom icons depict recognizable products (e.g. Sonos, WiiM, Google Nest,
+Apple TV, HomePod mini, Home Assistant Voice PE). Product names and shapes are
+trademarks of their respective owners and are used nominatively, to help users
+identify their own devices.
+
 Icons whose `source.set` in [`meta.json`](meta.json) is not `custom` are
 vendored from the following upstream sets and remain under their original licenses.
 

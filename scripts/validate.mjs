@@ -56,6 +56,27 @@ for (const id of Object.keys(meta.icons ?? {})) {
   if (!ids.has(id)) fail(`meta "${id}": not a manifest.json id`);
 }
 
+// --- migration/legacy-map.json (temporary server handoff) -------------------
+const legacy = JSON.parse(
+  await readFile(join(ROOT, "migration", "legacy-map.json"), "utf8"),
+);
+if (!ids.has(legacy.fallback)) {
+  fail(`legacy map: fallback "${legacy.fallback}" is not a canonical id`);
+}
+for (const [kind, target] of Object.entries(legacy.defaults ?? {})) {
+  if (!ids.has(target)) {
+    fail(`legacy map: default "${kind}" -> "${target}" is not a canonical id`);
+  }
+}
+for (const [key, target] of Object.entries(legacy.map ?? {})) {
+  if (!ids.has(target)) {
+    fail(`legacy map: "${key}" -> "${target}" is not a canonical id`);
+  }
+  if (ids.has(key)) {
+    fail(`legacy map: key "${key}" is a canonical id — redundant, canonical values are never migrated`);
+  }
+}
+
 // --- icons/ <-> manifest sync ----------------------------------------------
 const svgFiles = (await readdir(ICONS_DIR)).filter((f) => f.endsWith(".svg"));
 const svgIds = new Set(svgFiles.map((f) => f.replace(/\.svg$/, "")));

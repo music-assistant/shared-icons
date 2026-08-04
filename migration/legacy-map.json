@@ -1,5 +1,5 @@
 {
-  "$comment": "Temporary handoff for the server's one-time player-icon config migration. Maps legacy stored values (mdi-* names and pre-1.0 picker names) to canonical icon ids. Values not in the map fall back to the default. This file is NOT part of the icon-set contract — it moves into the server migration and is deleted once that ships.",
+  "$comment": "Temporary handoff for the server's one-time player-icon config migration. Algorithm: stored values that are already canonical ids are left untouched; values with an entry here are rewritten to that id; other mdi-* values are dropped so the player-type default applies; any other unknown value is left in place (clients render the fallback icon for it, and it may become a valid id in a future icon set). This file is NOT part of the icon-set contract - it moves into the server migration and is deleted once that ships.",
   "fallback": "speaker",
   "defaults": {
     "player": "speaker",
@@ -206,7 +206,6 @@
     "sprout": "garden",
     "television": "tv",
     "tent-tree": "outdoor",
-    "toilet": "toilet",
     "tree": "outdoor",
     "tree-deciduous": "outdoor",
     "tree-pine": "outdoor",
