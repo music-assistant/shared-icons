@@ -28,38 +28,45 @@ jsDelivr, e.g. `https://cdn.jsdelivr.net/gh/music-assistant/shared-icons@main/ic
 
 ![All icons in the set](docs/preview.svg)
 
-| Id             | Name          | Category | Keywords                               |
-| -------------- | ------------- | -------- | -------------------------------------- |
-| `homepod-mini` | HomePod mini  | device   | apple, smart speaker, siri, homepod    |
-| `sonos`        | Sonos         | device   | speaker, smart speaker                 |
-| `mac`          | Mac           | device   | apple, computer, macbook               |
-| `apple-tv`     | Apple TV      | device   | apple, media box, set-top box, appletv |
-| `speaker`      | Speaker       | player   | audio, hifi                            |
-| `speakers`     | Speaker group | player   | group, pair, stereo, multiple          |
-| `radio`        | Radio         | player   | tuner, fm, receiver                    |
-| `tv`           | TV            | player   | television, screen                     |
-| `monitor`      | Monitor       | player   | screen, desktop, display, computer     |
-| `laptop`       | Laptop        | player   | computer, notebook                     |
-| `headphones`   | Headphones    | player   | headset, audio                         |
-| `bluetooth`    | Bluetooth     | player   | wireless, speaker                      |
-| `airplay`      | AirPlay       | player   | apple, streaming                       |
-| `cast`         | Cast          | player   | chromecast, google, streaming          |
-| `car`          | Car           | player   | auto, vehicle, garage                  |
-| `music`        | Music         | media    | note, song                             |
-| `vinyl`        | Vinyl         | media    | record, disc, turntable, lp            |
-| `mic`          | Microphone    | media    | karaoke, voice, vocal, microphone      |
-| `volume`       | Volume        | media    | loud, sound                            |
-| `living-room`  | Living room   | area     | sofa, couch, lounge                    |
-| `bedroom`      | Bedroom       | area     | bed, sleep                             |
-| `bathroom`     | Bathroom      | area     | bath, tub, shower                      |
-| `kitchen`      | Kitchen       | area     | cooking, dining, utensils, fork        |
-| `office`       | Office        | area     | work, study, desk, briefcase           |
-| `hallway`      | Hallway       | area     | door, entrance, entry, corridor        |
-| `garden`       | Garden        | area     | flower, plants, yard                   |
-| `outdoor`      | Outdoor       | area     | tree, terrace, patio, outside          |
-| `sun`          | Sun           | area     | patio, terrace, bright, weather        |
-| `home`         | Home          | area     | house, whole home                      |
-| `building`     | Building      | area     | apartment, flat, office building       |
+| Id             | Name          | Category | Keywords                                            |
+| -------------- | ------------- | -------- | --------------------------------------------------- |
+| `homepod-mini` | HomePod mini  | device   | apple, smart speaker, siri, homepod                 |
+| `sonos`        | Sonos         | device   | speaker, smart speaker                              |
+| `mac`          | Mac           | device   | apple, computer, macbook                            |
+| `apple-tv`     | Apple TV      | device   | apple, media box, set-top box, appletv              |
+| `google-nest`  | Google Nest   | device   | google, nest, smart speaker, google home, assistant |
+| `voice-pe`     | Voice PE      | device   | home assistant, voice, assist, preview edition      |
+| `wiim`         | WiiM          | device   | streamer, smart speaker, amp                        |
+| `speaker`      | Speaker       | player   | audio, hifi                                         |
+| `speakers`     | Speaker group | player   | group, pair, stereo, multiple                       |
+| `soundbar`     | Soundbar      | player   | bar, tv audio, home theater, home cinema            |
+| `radio`        | Radio         | player   | tuner, fm, receiver                                 |
+| `tv`           | TV            | player   | television, screen                                  |
+| `monitor`      | Monitor       | player   | screen, desktop, display, computer                  |
+| `laptop`       | Laptop        | player   | computer, notebook                                  |
+| `smartphone`   | Smartphone    | player   | phone, mobile, cellphone, android, iphone           |
+| `tablet`       | Tablet        | player   | ipad, mobile                                        |
+| `headphones`   | Headphones    | player   | headset, audio                                      |
+| `bluetooth`    | Bluetooth     | player   | wireless, speaker                                   |
+| `airplay`      | AirPlay       | player   | apple, streaming                                    |
+| `cast`         | Cast          | player   | chromecast, google, streaming                       |
+| `car`          | Car           | player   | auto, vehicle, garage                               |
+| `music`        | Music         | media    | note, song                                          |
+| `vinyl`        | Vinyl         | media    | record, disc, turntable, lp                         |
+| `mic`          | Microphone    | media    | karaoke, voice, vocal, microphone                   |
+| `volume`       | Volume        | media    | loud, sound                                         |
+| `living-room`  | Living room   | area     | sofa, couch, lounge                                 |
+| `bedroom`      | Bedroom       | area     | bed, sleep                                          |
+| `bathroom`     | Bathroom      | area     | bath, tub, shower                                   |
+| `toilet`       | Toilet        | area     | wc, restroom, washroom                              |
+| `kitchen`      | Kitchen       | area     | cooking, dining, utensils, fork                     |
+| `office`       | Office        | area     | work, study, desk, briefcase                        |
+| `hallway`      | Hallway       | area     | door, entrance, entry, corridor                     |
+| `garden`       | Garden        | area     | flower, plants, yard                                |
+| `outdoor`      | Outdoor       | area     | tree, terrace, patio, outside                       |
+| `sun`          | Sun           | area     | patio, terrace, bright, weather                     |
+| `home`         | Home          | area     | house, whole home                                   |
+| `building`     | Building      | area     | apartment, flat, office building                    |
 
 <!-- GENERATED:END -->
 

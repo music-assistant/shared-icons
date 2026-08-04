@@ -50,6 +50,45 @@
         "appletv"
       ]
     },
+    "google-nest": {
+      "name": "Google Nest",
+      "category": "device",
+      "source": {
+        "set": "custom"
+      },
+      "keywords": [
+        "google",
+        "nest",
+        "smart speaker",
+        "google home",
+        "assistant"
+      ]
+    },
+    "voice-pe": {
+      "name": "Voice PE",
+      "category": "device",
+      "source": {
+        "set": "custom"
+      },
+      "keywords": [
+        "home assistant",
+        "voice",
+        "assist",
+        "preview edition"
+      ]
+    },
+    "wiim": {
+      "name": "WiiM",
+      "category": "device",
+      "source": {
+        "set": "custom"
+      },
+      "keywords": [
+        "streamer",
+        "smart speaker",
+        "amp"
+      ]
+    },
     "speaker": {
       "name": "Speaker",
       "category": "player",
@@ -74,6 +113,19 @@
         "pair",
         "stereo",
         "multiple"
+      ]
+    },
+    "soundbar": {
+      "name": "Soundbar",
+      "category": "player",
+      "source": {
+        "set": "custom"
+      },
+      "keywords": [
+        "bar",
+        "tv audio",
+        "home theater",
+        "home cinema"
       ]
     },
     "radio": {
@@ -129,6 +181,35 @@
       "keywords": [
         "computer",
         "notebook"
+      ]
+    },
+    "smartphone": {
+      "name": "Smartphone",
+      "category": "player",
+      "source": {
+        "set": "lucide",
+        "name": "smartphone",
+        "version": "1.24.0"
+      },
+      "keywords": [
+        "phone",
+        "mobile",
+        "cellphone",
+        "android",
+        "iphone"
+      ]
+    },
+    "tablet": {
+      "name": "Tablet",
+      "category": "player",
+      "source": {
+        "set": "lucide",
+        "name": "tablet",
+        "version": "1.24.0"
+      },
+      "keywords": [
+        "ipad",
+        "mobile"
       ]
     },
     "headphones": {
@@ -293,6 +374,20 @@
         "bath",
         "tub",
         "shower"
+      ]
+    },
+    "toilet": {
+      "name": "Toilet",
+      "category": "area",
+      "source": {
+        "set": "lucide",
+        "name": "toilet",
+        "version": "1.24.0"
+      },
+      "keywords": [
+        "wc",
+        "restroom",
+        "washroom"
       ]
     },
     "kitchen": {
