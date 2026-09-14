@@ -1,0 +1,45 @@
+name: Sync frontend
+
+# The sender half of the icon sync. A published release triggers the frontend's
+# sync-shared-icons workflow, which vendors the tag and opens a PR.
+on:
+  release:
+    types: [published]
+
+permissions:
+  contents: read
+
+jobs:
+  dispatch:
+    runs-on: ubuntu-latest
+    env:
+      TAG: ${{ github.event.release.tag_name }}
+      FRONTEND_OWNER: music-assistant
+      FRONTEND_REPO: frontend
+    steps:
+      # A release event checks out the tagged commit.
+      - uses: actions/checkout@v4
+
+      # Clients pin the tag, so it has to say the same thing as the manifest.
+      - name: Check the tag matches manifest.json
+        run: |
+          VERSION="$(jq -r .version manifest.json)"
+          if [ "$TAG" != "$VERSION" ]; then
+            echo "::error::Release tag $TAG does not match manifest.json version $VERSION"
+            exit 1
+          fi
+
+      - name: Create app token
+        id: app_token
+        uses: actions/create-github-app-token@v3
+        with:
+          client-id: ${{ secrets.MUSIC_ASSISTANT_BOT_CLIENT_ID }}
+          private-key: ${{ secrets.MUSIC_ASSISTANT_BOT_PRIVATE_KEY }}
+          owner: ${{ env.FRONTEND_OWNER }}
+          repositories: ${{ env.FRONTEND_REPO }}
+          permission-actions: write
+
+      - name: Trigger the frontend sync
+        run: gh workflow run sync-shared-icons.yml --repo "$FRONTEND_OWNER/$FRONTEND_REPO" -f tag="$TAG"
+        env:
+          GH_TOKEN: ${{ steps.app_token.outputs.token }}
