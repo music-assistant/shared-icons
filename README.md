@@ -167,8 +167,7 @@ values already canonical are untouched, mapped values are rewritten, unmappable
 
 ## Versioning & releases
 
-The set is versioned semantically in `manifest.json`, and a release is simply a git
-tag (`v1.0.0`) — clients sync from tags, nothing is published to any registry:
+The set is versioned semantically in `manifest.json`, and a release is a GitHub release whose tag is exactly that version (`0.3.0`, no `v` prefix). Publishing a release also opens the sync PR on the frontend, and that workflow refuses a tag that does not match the manifest:
 
 - **patch** — artwork tweaks, keyword additions, metadata fixes
 - **minor** — new icons
