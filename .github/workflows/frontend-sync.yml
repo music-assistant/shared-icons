@@ -1,7 +1,6 @@
 name: Sync frontend
 
-# The sender half of the icon sync. A published release triggers the frontend's
-# sync-shared-icons workflow, which vendors the tag and opens a PR.
+# Vendors every published release into the frontend and opens a PR
 on:
   release:
     types: [published]
@@ -10,15 +9,14 @@ permissions:
   contents: read
 
 jobs:
-  dispatch:
+  sync-frontend:
     runs-on: ubuntu-latest
     env:
       TAG: ${{ github.event.release.tag_name }}
       FRONTEND_OWNER: music-assistant
       FRONTEND_REPO: frontend
     steps:
-      # A release event checks out the tagged commit.
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
 
       # Clients pin the tag, so it has to say the same thing as the manifest.
       - name: Check the tag matches manifest.json
@@ -29,17 +27,54 @@ jobs:
             exit 1
           fi
 
-      - name: Create app token
-        id: app_token
-        uses: actions/create-github-app-token@v3
+      - name: Create frontend token
+        id: frontend_token
+        uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1
         with:
           client-id: ${{ secrets.MUSIC_ASSISTANT_BOT_CLIENT_ID }}
           private-key: ${{ secrets.MUSIC_ASSISTANT_BOT_PRIVATE_KEY }}
           owner: ${{ env.FRONTEND_OWNER }}
           repositories: ${{ env.FRONTEND_REPO }}
-          permission-actions: write
+          permission-contents: write
+          permission-pull-requests: write
 
-      - name: Trigger the frontend sync
-        run: gh workflow run sync-shared-icons.yml --repo "$FRONTEND_OWNER/$FRONTEND_REPO" -f tag="$TAG"
-        env:
-          GH_TOKEN: ${{ steps.app_token.outputs.token }}
+      - name: Checkout frontend
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          repository: ${{ env.FRONTEND_OWNER }}/${{ env.FRONTEND_REPO }}
+          token: ${{ steps.frontend_token.outputs.token }}
+          persist-credentials: false
+          path: frontend
+
+      # The frontend's package.json says which pnpm to use.
+      - uses: pnpm/action-setup@ea17c68df8912ef543352723c149a84f56e3d413
+        with:
+          package_json_file: frontend/package.json
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Run the frontend sync
+        working-directory: frontend
+        run: |
+          pnpm install --frozen-lockfile
+          pnpm sync:shared-icons "$TAG"
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@5f6978faf089d4d20b00c7766989d076bb2fc7f1
+        with:
+          path: frontend
+          token: ${{ steps.frontend_token.outputs.token }}
+          commit-message: "⬆️ Sync shared-icons to ${{ github.event.release.tag_name }}"
+          sign-commits: true
+          branch: "auto-update-shared-icons-${{ github.event.release.tag_name }}"
+          base: main
+          delete-branch: true
+          title: "⬆️ Sync shared-icons to ${{ github.event.release.tag_name }}"
+          labels: |
+            dependencies
+          body: |
+            Sync vendored icons to shared-icons [${{ github.event.release.tag_name }}](${{ github.event.release.html_url }}).
+
+            ${{ github.event.release.body }}
