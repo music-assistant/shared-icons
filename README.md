@@ -119,7 +119,8 @@ group and search the icons however fits their UI.
 - Stroke icons follow the [Lucide](https://lucide.dev) style: `stroke-width="2"`,
   round caps and joins, `fill="none"`. Fill icons (detailed device silhouettes)
   are the exception, not the rule.
-- No scripts, embedded images or external references. Max 6 KB per file.
+- No scripts, embedded images, external references, event handlers,
+  `foreignObject` or `style`. Max 6 KB per file.
 - Vendored icons are committed as generated — edit custom artwork only; re-vendor
   upstream icons instead of hand-editing them.
 
