@@ -123,10 +123,6 @@ group and search the icons however fits their UI.
 - Vendored icons are committed as generated — edit custom artwork only; re-vendor
   upstream icons instead of hand-editing them.
 
-> **Note:** `speakers` is a first draft, and `soundbar` uses a 1.5 stroke for
-> detail. A design pass redrawing them natively on the 24×24 grid (stroke 2 where
-> feasible) is welcome.
-
 ## Using the icons
 
 This repo is a versioned source of truth, not a runtime dependency: nobody installs
