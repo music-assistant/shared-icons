@@ -125,9 +125,8 @@ group and search the icons however fits their UI.
 
 > **Note:** the four original custom icons (`apple-tv`, `mac`, `homepod-mini`,
 > `sonos`) were authored on larger grids and are currently normalized with a scale
-> transform, `speakers` is a first draft, and `soundbar` uses a 1.5 stroke for
-> detail. A design pass redrawing them natively on the 24×24 grid (stroke 2 where
-> feasible) is welcome.
+> transform, `speakers` is a first draft. A design pass redrawing them natively
+> on the 24×24 grid (stroke 2 where feasible) is welcome.
 
 ## Using the icons
 
