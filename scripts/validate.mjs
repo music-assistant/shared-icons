@@ -113,6 +113,9 @@ for (const file of svgFiles) {
   if (/<script|<image|href=|url\(/.test(raw)) {
     fail(`${ctx}: scripts, embedded images and external references are not allowed`);
   }
+  if (/<foreignObject|<style|\son[a-z]+\s*=/i.test(raw)) {
+    fail(`${ctx}: event handlers, foreignObject and style are not allowed`);
+  }
 }
 
 // --- result -------------------------------------------------------------

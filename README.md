@@ -119,7 +119,8 @@ group and search the icons however fits their UI.
 - Stroke icons follow the [Lucide](https://lucide.dev) style: `stroke-width="2"`,
   round caps and joins, `fill="none"`. Fill icons (detailed device silhouettes)
   are the exception, not the rule.
-- No scripts, embedded images or external references. Max 6 KB per file.
+- No scripts, embedded images, external references, event handlers,
+  `foreignObject` or `style`. Max 6 KB per file.
 - Vendored icons are committed as generated — edit custom artwork only; re-vendor
   upstream icons instead of hand-editing them.
 
@@ -166,8 +167,7 @@ values already canonical are untouched, mapped values are rewritten, unmappable
 
 ## Versioning & releases
 
-The set is versioned semantically in `manifest.json`, and a release is simply a git
-tag (`v1.0.0`) — clients sync from tags, nothing is published to any registry:
+The set is versioned semantically in `manifest.json`, and a release is a GitHub release whose tag is exactly that version (`0.3.0`, no `v` prefix). Publishing a release also opens the sync PR on the frontend, and that workflow refuses a tag that does not match the manifest:
 
 - **patch** — artwork tweaks, keyword additions, metadata fixes
 - **minor** — new icons
