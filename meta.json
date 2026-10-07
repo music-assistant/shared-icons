@@ -90,14 +90,14 @@
       "keywords": ["bar", "tv audio", "home theater", "home cinema"]
     },
     "receiver": {
-      "name": "AV Receiver",
+      "name": "AV receiver",
       "category": "player",
       "source": {
         "set": "lucide",
         "name": "radio-receiver",
-        "version": "1.26.0"
+        "version": "1.24.0"
       },
-      "keywords": ["av receiver", "receiver", "amplifier", "stereo", "audio", "home theater", "tuner"]
+      "keywords": ["amplifier", "stereo", "audio", "home theater", "tuner"]
     },
     "radio": {
       "name": "Radio",
@@ -107,7 +107,7 @@
         "name": "radio",
         "version": "1.24.0"
       },
-      "keywords": ["tuner", "fm", "receiver"]
+      "keywords": ["tuner", "fm"]
     },
     "tv": {
       "name": "TV",
