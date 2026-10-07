@@ -40,7 +40,8 @@ jsDelivr, e.g. `https://cdn.jsdelivr.net/gh/music-assistant/shared-icons@main/ic
 | `speaker`      | Speaker       | player   | audio, hifi                                         |
 | `speakers`     | Speaker group | player   | group, pair, stereo, multiple                       |
 | `soundbar`     | Soundbar      | player   | bar, tv audio, home theater, home cinema            |
-| `radio`        | Radio         | player   | tuner, fm, receiver                                 |
+| `receiver`     | AV receiver   | player   | amplifier, stereo, audio, home theater, tuner       |
+| `radio`        | Radio         | player   | tuner, fm                                           |
 | `tv`           | TV            | player   | television, screen                                  |
 | `monitor`      | Monitor       | player   | screen, desktop, display, computer                  |
 | `laptop`       | Laptop        | player   | computer, notebook                                  |
