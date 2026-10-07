@@ -89,6 +89,16 @@
       },
       "keywords": ["bar", "tv audio", "home theater", "home cinema"]
     },
+    "receiver": {
+      "name": "AV Receiver",
+      "category": "player",
+      "source": {
+        "set": "lucide",
+        "name": "radio-receiver",
+        "version": "1.26.0"
+      },
+      "keywords": ["av receiver", "receiver", "amplifier", "stereo", "audio", "home theater", "tuner"]
+    },
     "radio": {
       "name": "Radio",
       "category": "player",
