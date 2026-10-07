@@ -6,7 +6,7 @@
   .v { font-size: 12px; text-anchor: end; }
 </style>
 <g color="#848d97">
-<text class="v" x="756" y="32">v0.3.0 · 37 icons</text>
+<text class="v" x="756" y="32">v0.3.1 · 37 icons</text>
 <text class="h" x="20" y="32">Device</text>
 <svg x="50" y="46" width="32" height="32" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
   <path d="m17.5 3.7c2.71 1.79 4.5 4.812 4.5 8.3 0 5.519-4.481 10-10 10s-10-4.481-10-10c0-3.488 1.79-6.51 4.5-8.3"/>
