@@ -1,8 +1,8 @@
 name: Sync mobile
 
-# Mobile hand-converts every SVG into a vector asset, so a release that adds
-# icons needs a human on that side. File an issue listing exactly what's new.
-# Nothing to do when a release only tweaks artwork, keywords or metadata.
+# Mobile hand-converts every SVG into a vector asset, so a release that adds or
+# redraws icons needs a human on that side. File an issue listing exactly what
+# changed. Nothing to do when a release only touches keywords or metadata.
 on:
   release:
     types: [published]
@@ -40,7 +40,7 @@ jobs:
           fetch-depth: 0
           persist-credentials: false
 
-      - name: Collect the icons this release adds
+      - name: Collect the icons this release changes
         id: collect
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -72,24 +72,54 @@ jobs:
             --slurpfile new manifest.json \
             '$new[0].icons - $old[0].icons | .[]')"
 
-          if [ -z "$ADDED" ]; then
-            echo "::notice::$TAG adds no icons over $PREV — no issue needed."
+          # Redrawn artwork needs re-exporting over the existing asset, so it is
+          # work for mobile too. --diff-filter=M keeps this to ids that existed
+          # before: additions are 'A' and land in $ADDED, removals are 'D'.
+          UPDATED="$(git diff --name-only --diff-filter=M "$PREV" "$TAG" -- icons/ |
+            sed 's|^icons/||; s|\.svg$||')"
+
+          if [ -z "$ADDED" ] && [ -z "$UPDATED" ]; then
+            echo "::notice::$TAG changes no icons over $PREV — no issue needed."
             echo "count=0" >> "$GITHUB_OUTPUT"
             exit 0
           fi
 
-          COUNT="$(printf '%s\n' "$ADDED" | wc -l | tr -d ' ')"
-          REPO_URL="$GITHUB_SERVER_URL/$GITHUB_REPOSITORY"
+          count_of() { if [ -z "$1" ]; then echo 0; else printf '%s\n' "$1" | wc -l | tr -d ' '; fi; }
+          N_ADDED="$(count_of "$ADDED")"
+          N_UPDATED="$(count_of "$UPDATED")"
 
-          {
-            printf '`%s` adds **%s** new icon(s) to the shared set.\n\n' "$TAG" "$COUNT"
-            printf 'Each one needs converting to a vector asset and wiring into the id → asset map — ids map 1:1 to the file names.\n\n'
-            printf '### New icons\n\n'
-            printf '%s\n' "$ADDED" | while IFS= read -r id; do
+          # "1 new, 6 updated" — each half only when it has something to say.
+          SUMMARY=""
+          if [ "$N_ADDED" != "0" ]; then SUMMARY="$N_ADDED new"; fi
+          if [ "$N_UPDATED" != "0" ]; then
+            if [ -n "$SUMMARY" ]; then SUMMARY="$SUMMARY, "; fi
+            SUMMARY="$SUMMARY$N_UPDATED updated"
+          fi
+
+          REPO_URL="$GITHUB_SERVER_URL/$GITHUB_REPOSITORY"
+          list_icons() {
+            printf '%s\n' "$1" | while IFS= read -r id; do
               printf -- '- `%s` — [icons/%s.svg](%s/blob/%s/icons/%s.svg)\n' \
                 "$id" "$id" "$REPO_URL" "$TAG" "$id"
             done
-            printf '\n### Links\n\n'
+          }
+
+          {
+            printf '`%s` brings **%s** icon(s) in the shared set.\n\n' "$TAG" "$SUMMARY"
+            printf 'Ids map 1:1 to the file names.\n\n'
+            if [ "$N_ADDED" != "0" ]; then
+              printf '### New icons\n\n'
+              printf 'Convert each to a vector asset and wire it into the id → asset map.\n\n'
+              list_icons "$ADDED"
+              printf '\n'
+            fi
+            if [ "$N_UPDATED" != "0" ]; then
+              printf '### Updated icons\n\n'
+              printf 'Artwork changed upstream — re-export each over the existing asset. No id or mapping changes.\n\n'
+              list_icons "$UPDATED"
+              printf '\n'
+            fi
+            printf '### Links\n\n'
             printf -- '- Release: %s\n' "${RELEASE_URL:-$REPO_URL/releases/tag/$TAG}"
             printf -- '- Everything that changed since `%s`: %s/compare/%s...%s\n' \
               "$PREV" "$REPO_URL" "$PREV" "$TAG"
@@ -113,8 +143,8 @@ jobs:
           printf '\n---\n\nOpened automatically from the `%s` release in %s.\n' \
             "$TAG" "$GITHUB_REPOSITORY" >> issue-body.md
 
-          echo "count=$COUNT" >> "$GITHUB_OUTPUT"
-          echo "title=New icons to add ($TAG)" >> "$GITHUB_OUTPUT"
+          echo "count=$((N_ADDED + N_UPDATED))" >> "$GITHUB_OUTPUT"
+          echo "title=Shared icons $TAG — $SUMMARY" >> "$GITHUB_OUTPUT"
 
       - name: Create app token
         if: steps.collect.outputs.count != '0'
